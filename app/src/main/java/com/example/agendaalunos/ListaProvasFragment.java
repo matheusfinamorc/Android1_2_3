@@ -14,6 +14,8 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.example.agendaalunos.modelo.Prova;
 
@@ -26,6 +28,7 @@ public class ListaProvasFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_lista_provas, container, false);
+
         List<String> topicosPort = Arrays.asList("Sujeito","Objeto Direto","Objeto Indireto");
         Prova provaPortugues = new Prova("Portugues","04/01/2021",topicosPort);
 
@@ -35,7 +38,7 @@ public class ListaProvasFragment extends Fragment {
         List<Prova> provas = Arrays.asList(provaMatematica, provaPortugues);
         ArrayAdapter<Prova> adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_1,provas);
 
-        ListView lista = view.findViewById(R.id.provas_lista);
+        ListView lista = (ListView) view.findViewById(R.id.provas_lista);
         lista.setAdapter(adapter);
 
         lista.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -45,11 +48,10 @@ public class ListaProvasFragment extends Fragment {
 
                 // pega o item na posicaçao "i" para mostrar
                 Prova prova = (Prova) adapterView.getItemAtPosition(i);
-                Toast.makeText(getContext(),"Clicou na prova "+prova,Toast.LENGTH_LONG).show();
-                Intent vaiParaDetalhes = new Intent(getContext(),DetalhesProvasActivity.class);
-                vaiParaDetalhes.putExtra("prova",prova);
+                Toast.makeText(getContext(),"Clicou na prova " + prova,Toast.LENGTH_LONG).show();
 
-                startActivity(vaiParaDetalhes);
+                ProvasActivity provasActivity = (ProvasActivity) getActivity();
+                provasActivity.selecionarProva(prova);
             }
         });
 

@@ -58,7 +58,7 @@
             android:id="@+id/item_site"
             android:text="Site"
             android:textSize="24sp"
-            android:paddingTop="8dp"/>
+            android:paddingTop="10dp"/>
 
 
     </LinearLayout>
